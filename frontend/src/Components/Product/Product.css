@@ -1,0 +1,15 @@
+.product {
+    width: 300px;
+    height: 450px;
+    margin: 2rem;
+    background-color: #FFF;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.product img {
+    width: 260px;
+    height: 220px;
+}

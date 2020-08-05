@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  BrowserRouter,
+} from "react-router-dom";
 
-function App() {
+import Sidebar from "./Components/Sidebar/Sidebar";
+import PageProducts from "./Pages/PageProducts";
+import PageAuth from "./Pages/PageAuth";
+import PageSell from "./Pages/PageSell";
+import PageOrders from "./Pages/PageOrders";
+import PageInfo from "./Pages/PageInfo";
+import "./App.css";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Sidebar />
+      <div className="main">
+        <Switch>
+          <Route path="/" exact>
+            <PageProducts />
+          </Route>
+          <Route path="/auth" exact>
+            <PageAuth />
+          </Route>
+          <Route path="/profile/info" exact>
+            <PageInfo />
+          </Route>
+          <Route path="/profile/orders" exact>
+            <PageOrders />
+          </Route>
+          <Route path="/profile/products" exact>
+            <PageSell />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
