@@ -1,0 +1,21 @@
+.product-add {
+    width: 300px;
+    height: 450px;
+    margin: 2rem;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    border: solid 3px #ade498;
+    color: #ade498;
+    font-size: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.product-add:hover {
+    background-color: #ade498;
+    color: rgb(245, 245, 245);
+}
