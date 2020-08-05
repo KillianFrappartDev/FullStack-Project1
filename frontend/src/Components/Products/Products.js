@@ -25,7 +25,7 @@ const Products = (props) => {
   return (
     <div className="products">
       {DUMMY_PRODUCTS.map((prod) => (
-        <Product name={prod.name} price={prod.price} image={prod.image} />
+        <Product name={prod.name} price={prod.price} image={prod.image} sell={props.sell} />
       ))}
     </div>
   );

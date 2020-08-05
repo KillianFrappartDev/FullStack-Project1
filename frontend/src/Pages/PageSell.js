@@ -1,7 +1,9 @@
 import React from 'react';
 
+import Products from '../Components/Products/Products';
+
 const PageSell = props => {
-    return (<h1>Page Sell!</h1>);
+    return (<Products sell={true} />);
 }
 
 export default PageSell;
