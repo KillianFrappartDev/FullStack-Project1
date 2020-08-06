@@ -1,17 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from 'axios';
 
+import AuthContext from '../Context/auth-context';
 import Form from "../Components/Form/Form";
 import Input from "../Components/Input/Input";
 
 const PageAuth = (props) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+
+  const authContext = useContext(AuthContext);
+
+  const changeNameHandler = (event) => setName(event.target.value);
+  const changeEmailHandler = (event) => setEmail(event.target.value);
+  const changePasswordHandler = (event) => setPassword(event.target.value);
 
   const switchHandler = () => {
     isLogin ? setIsLogin(false) : setIsLogin(true);
   };
 
-  let form;
+  const submitHandler = async () => {
+    try {
+      if (isLogin) {
+        await axios.post('http://localhost:5000/api/users/login', { email, password});
+      } else {
+        await axios.post('http://localhost:5000/api/users/signup', { name, email, password});
+      }
+    } catch (error) {
+      console.log("[ERROR][POST][USERS] Authentication failed.");
+      console.log(error);
+      return;
+    }
 
+    authContext.login("token-xxx", "userId-yyy");
+    console.log("Success");
+  }
+
+  let form;
   if (isLogin) {
     form = (
       <Form
@@ -20,18 +47,23 @@ const PageAuth = (props) => {
         auth={true}
         switch={switchHandler}
         mode={isLogin}
+        submit={submitHandler}
       >
         <Input
           type="email"
           id="email"
           label="Email"
           placeholder="Enter your Email..."
+          change={changeEmailHandler}
+          value={email}
         />
         <Input
           type="password"
           id="password"
           label="Password"
           placeholder="Enter your password..."
+          change={changePasswordHandler}
+          value={password}
         />
       </Form>
     );
@@ -43,24 +75,31 @@ const PageAuth = (props) => {
         auth={true}
         switch={switchHandler}
         mode={isLogin}
+        submit={submitHandler}
       >
         <Input
           type="text"
           id="name"
           label="Name"
           placeholder="Enter your name..."
+          change={changeNameHandler}
+          value={name}
         />
         <Input
           type="email"
           id="email"
           label="Email"
           placeholder="Enter your email..."
+          change={changeEmailHandler}
+          value={email}
         />
         <Input
           type="password"
           id="password"
           label="Password"
           placeholder="Enter your password..."
+          change={changePasswordHandler}
+          value={password}
         />
       </Form>
     );
