@@ -1,5 +1,4 @@
 .button {
-
     margin: 2rem auto;
     background-color: rgb(250, 250, 250);
     color: #c70039;
@@ -25,4 +24,16 @@
     background-color: #c70039;
     border: #c70039 solid 1px;
     outline: none;
+}
+
+.button.green {
+    color : #ade498;
+    border-color: #ade498!important;
+    margin-right: 2rem;
+}
+
+.button.green:hover, .button.green:focus {
+    background-color: #ade498;
+    border-color: #ade498!important;
+    color: rgb(250, 250, 250);
 }

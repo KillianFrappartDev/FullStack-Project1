@@ -12,12 +12,7 @@ const PageInfo = (props) => {
         label="Name"
         placeholder="Enter your name..."
       />
-      <Input
-        type="text"
-        id="age"
-        label="Age"
-        placeholder="Enter your age..."
-      />
+      <Input type="text" id="age" label="Age" placeholder="Enter your age..." />
       <Input
         type="text"
         id="address"

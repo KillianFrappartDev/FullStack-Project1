@@ -11,7 +11,11 @@ const Product = (props) => {
         <h2>{props.name}</h2>
         <h3>{props.price + "$"}</h3>
       </div>
-      <Button text={props.sell ? "Delete!" : "Buy!"} size="button-small" />
+      <Button
+        click={props.click.bind(null, props)}
+        text={props.sell ? "Delete!" : "Buy!"}
+        size="button-small"
+      />
     </div>
   );
 };

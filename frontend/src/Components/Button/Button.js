@@ -4,7 +4,7 @@ import './Button.css';
 
 const Button = props => {
     return (
-        <button className={`button ${props.size || "button-medium"}`}>{props.text}</button>
+        <button onClick={props.click} className={`button ${props.size || "button-medium"} ${props.color}`}>{props.text}</button>
     );
 }
 
