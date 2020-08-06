@@ -35,6 +35,34 @@ const addProduct = async (req, res, next) => {
   res.json({ newProduct });
 };
 
+const deleteProduct = async (req, res, next) => {
+  const pid = req.params.pid;
+
+  let product;
+  try {
+    product = await Product.findById(pid);
+  } catch (error) {
+    const err = new Error("[DELETE][PRODUCTS] Delete product failed (Could not find corresponding ID)");
+    console.log(err.message);
+    return next(err);
+  }
+
+  if (!product) {
+    return next(new Error("[DELETE][PRODUCTS] Delete product failed (Could not find corresponding ID)"));
+  }
+
+  try {
+    await product.remove();
+  } catch (error) {
+    const err = new Error("[DELETE][PRODUCTS] Delete product failed (Could not delete from db)");
+    console.log(err.message);
+    return next(err);
+  }
+
+  res.json({message: "Product deleted"});
+}
+
 
 exports.getProducts = getProducts;
 exports.addProduct = addProduct;
+exports.deleteProduct = deleteProduct;

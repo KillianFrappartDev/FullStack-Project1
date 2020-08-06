@@ -16,17 +16,20 @@ app.use("api/users", usersRoutes);
 app.use("api/orders", ordersroutes);
 
 app.use((error, req, res, next) => {
-    console.log(error);
-    res.json({ message: error.message || 'An unknown error occurred!' });
-})
+  console.log(error);
+  res.json({ message: error.message || "An unknown error occurred!" });
+});
 
 mongoose
   .connect(
-    `mongodb+srv://KillianFrappartDev:3698dd2de@cluster0-qo3vu.gcp.mongodb.net/shop?retryWrites=true&w=majority`
+    `mongodb+srv://KillianFrappartDev:3698dd2de@cluster0-qo3vu.gcp.mongodb.net/shop?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
-    app.listen(process.env.PORT || 5000, () => console.log("Server up and running !"));
+    app.listen(process.env.PORT || 5000, () =>
+      console.log("Server up and running !")
+    );
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });

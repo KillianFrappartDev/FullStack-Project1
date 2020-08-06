@@ -8,7 +8,7 @@ import Products from "../Components/Products/Products";
 const PageSell = (props) => {
   const [loadedProducts, setProducts] = useState([]);
   const [isModal, setIsModal] = useState(false);
-  const [currentItem, setCurrentItem] = useState("");
+  const [currentItem, setCurrentItem] = useState({});
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,8 +45,24 @@ const PageSell = (props) => {
     }
   };
 
+  const deleteProductHandler = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/api/products/${currentItem.id}`)
+    } catch (error) {
+      console.log("[ERROR][DELETE][PRODUCTS] Delete products failed");
+      console.log(error);
+      return;
+    }
+
+    setIsModal(false);
+    setProducts(prev => {
+      const newList = prev.filter(item => item.id !== currentItem.id);
+      return newList;
+    });
+  }
+
   const clickHandler = (item) => {
-    setCurrentItem(item.name);
+    setCurrentItem(item);
     setIsModal(true);
   };
 
@@ -58,8 +74,8 @@ const PageSell = (props) => {
     <React.Fragment>
       {isModal && (
         <Modal cancel={cancelHandler}>
-          <h1>{`Do you really want to delete ${currentItem} ?`}</h1>
-          <Button click={cancelHandler} text="Confirm!" color="green" />
+          <h1>{`Do you really want to delete ${currentItem.name} ?`}</h1>
+          <Button click={deleteProductHandler} text="Confirm!" color="green" />
           <Button click={cancelHandler} text="Cancel!" />
         </Modal>
       )}
