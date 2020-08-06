@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/api/products", productsRoutes);
-app.use("api/users", usersRoutes);
-app.use("api/orders", ordersroutes);
+app.use("/api/users", usersRoutes);
+app.use("/api/orders", ordersroutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
