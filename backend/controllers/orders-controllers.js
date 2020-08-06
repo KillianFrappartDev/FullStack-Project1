@@ -10,6 +10,7 @@ const getOrders = async (req, res, next) => {
     return next(err);
   }
 
+  console.log("GET ORDERS");
   res.json({ orders: orders.map((item) => item.toObject({ getters: true })) });
 };
 

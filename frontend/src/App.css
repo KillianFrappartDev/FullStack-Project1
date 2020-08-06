@@ -24,6 +24,10 @@ a {
   padding-left: 8rem;
 }
 
-.primary {
+.primary-bg {
   background-color: #c70039;
+}
+
+.primary-color {
+  color: #c70039;
 }

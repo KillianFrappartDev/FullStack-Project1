@@ -45,3 +45,7 @@
     border-top: solid 1px rgba(0, 0, 0, 0.5);
     padding-top: 1.5rem;
 }
+
+.sidebar__link.primary-color:hover {
+    color: red!important;
+}

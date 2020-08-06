@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 
+import AuthContext from '../Context/auth-context';
 import Button from '../Components/Button/Button';
 import Modal from '../Components/Modal/Modal';
 import Products from '../Components/Products/Products';
@@ -9,6 +10,18 @@ const PageProducts = props => {
     const [loadedProducts, setProducts] = useState([]);
     const [isModal, setIsModal] = useState(false);
     const [currentItem, setCurrentItem] = useState("");
+    const authContext= useContext(AuthContext);
+
+    useEffect(() => {
+      const storedData = JSON.parse(localStorage.getItem('userData'));
+
+      if (!storedData) {
+        return;
+      } else {
+        authContext.login(storedData.token, storedData.userId);
+      }
+
+    }, [])
 
     useEffect(() => {
       const fetchProducts = async () => {

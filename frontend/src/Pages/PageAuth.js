@@ -22,11 +22,13 @@ const PageAuth = (props) => {
   };
 
   const submitHandler = async () => {
+
+    let response;
     try {
       if (isLogin) {
-        await axios.post('http://localhost:5000/api/users/login', { email, password});
+        response = await axios.post('http://localhost:5000/api/users/login', { email, password});
       } else {
-        await axios.post('http://localhost:5000/api/users/signup', { name, email, password});
+        response = await axios.post('http://localhost:5000/api/users/signup', { name, email, password});
       }
     } catch (error) {
       console.log("[ERROR][POST][USERS] Authentication failed.");
@@ -34,8 +36,7 @@ const PageAuth = (props) => {
       return;
     }
 
-    authContext.login("token-xxx", "userId-yyy");
-    console.log("Success");
+    authContext.login(response.data.token, response.data.userId);
   }
 
   let form;

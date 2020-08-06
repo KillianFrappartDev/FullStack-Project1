@@ -6,7 +6,7 @@ import './Orders.css';
 const Orders = props => {
     return (
       <div className="orders">
-        <div className="order primary">
+        <div className="order primary-bg">
           <h3>Date</h3>
           <h3>Product</h3>
           <h3>Price</h3>

@@ -7,6 +7,10 @@ import "./Sidebar.css";
 const Sidebar = (props) => {
   const authContext = useContext(AuthContext);
 
+  const clickHandler = () => {
+    authContext.logout();
+  }
+
   let links;
   if (authContext.isLogged) {
     links = (
@@ -28,6 +32,11 @@ const Sidebar = (props) => {
           <NavLink className="sidebar__link" to="/profile/orders">
             <span className="navbar__brand-icon">
               <i className="fas fa-money-check-alt fa-3x"></i>
+            </span>
+          </NavLink>
+          <NavLink onClick={clickHandler} className="sidebar__link primary-color" to="/">
+            <span className="navbar__brand-icon">
+              <i className="fas fa-sign-out-alt fa-3x"></i>
             </span>
           </NavLink>
         </div>

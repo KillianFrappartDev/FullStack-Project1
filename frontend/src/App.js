@@ -25,7 +25,14 @@ const App = () => {
     setIsLogged(true);
     setToken(tok);
     setUserId(uid);
-    console.log(`CONTEXT: ${tok}, ${uid}`);
+    localStorage.setItem("userData", JSON.stringify({userId: uid, token: tok}));
+  }
+
+  const logoutHandler = () => {
+    setIsLogged(false);
+    setToken(null);
+    setUserId(null);
+    localStorage.removeItem("userData");
   }
 
   let routes;
@@ -63,7 +70,7 @@ const App = () => {
 
   return (
     <AuthContext.Provider
-      value={{ isLogged, token, userId, login: loginHandler }}
+      value={{ isLogged, token, userId, login: loginHandler, logout: logoutHandler }}
     >
       <Router>
         <Sidebar />
