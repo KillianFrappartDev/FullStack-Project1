@@ -1,15 +1,21 @@
 import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 
-import AuthContext from '../Context/auth-context';
+import AuthContext from "../Context/auth-context";
 import Button from "../Components/Button/Button";
 import Modal from "../Components/Modal/Modal";
 import Products from "../Components/Products/Products";
+import Form from "../Components/Form/Form";
+import Input from "../Components/Input/Input";
 
 const PageSell = (props) => {
   const [loadedProducts, setProducts] = useState([]);
   const [isModal, setIsModal] = useState(false);
+  const [formModal, setFormModal] = useState(false);
   const [currentItem, setCurrentItem] = useState({});
+  const [addName, setAddName] = useState("");
+  const [addPrice, setAddPrice] = useState("");
+  const [addURL, setAddUrl] = useState("");
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
@@ -29,27 +35,34 @@ const PageSell = (props) => {
   }, []);
 
   const addProductHandler = async () => {
+    let newItem;
     try {
-      const newItem = {
-        name: "laptop",
-        price: 199,
-        image:
-          "https://target.scene7.com/is/image/Target/GUEST_2cb81429-497b-4a1f-a637-9dfcbebe38c2?wid=488&hei=488&fmt=pjpeg",
+      newItem = {
+        name: addName,
+        price: addPrice,
+        image: addURL,
       };
 
-      await axios.post("http://localhost:5000/api/products", newItem, { headers: { token: authContext.token, userId: authContext.userId }});
+      await axios.post("http://localhost:5000/api/products", newItem, {
+        headers: { token: authContext.token, userId: authContext.userId },
+      });
 
-      setProducts(loadedProducts.concat(newItem));
     } catch (error) {
       console.log("[ERROR][POST][PRODUCTS] Add products failed");
       console.log(error);
       return;
     }
+    
+    setProducts(loadedProducts.concat(newItem));
+    setFormModal(false);
   };
 
   const deleteProductHandler = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/${currentItem.id}`, { headers: { token: authContext.token, userId: authContext.userId }});
+      await axios.delete(
+        `http://localhost:5000/api/products/${currentItem.id}`,
+        { headers: { token: authContext.token, userId: authContext.userId } }
+      );
     } catch (error) {
       console.log("[ERROR][DELETE][PRODUCTS] Delete products failed");
       console.log(error);
@@ -57,11 +70,11 @@ const PageSell = (props) => {
     }
 
     setIsModal(false);
-    setProducts(prev => {
-      const newList = prev.filter(item => item.id !== currentItem.id);
+    setProducts((prev) => {
+      const newList = prev.filter((item) => item.id !== currentItem.id);
       return newList;
     });
-  }
+  };
 
   const clickHandler = (item) => {
     setCurrentItem(item);
@@ -70,6 +83,23 @@ const PageSell = (props) => {
 
   const cancelHandler = () => {
     setIsModal(false);
+    setFormModal(false);
+  };
+
+  const addFormHandler = () => {
+    setFormModal(true);
+  };
+
+  const nameChangeHandler = (e) => {
+    setAddName(e.target.value);
+  };
+
+  const priceChangeHandler = (e) => {
+    setAddPrice(e.target.value);
+  };
+
+  const imageChangeHandler = (e) => {
+    setAddUrl(e.target.value);
   };
 
   return (
@@ -81,7 +111,41 @@ const PageSell = (props) => {
           <Button click={cancelHandler} text="Cancel!" />
         </Modal>
       )}
-      <Products sell={true} items={loadedProducts} click={clickHandler} update={addProductHandler} />
+      {formModal && (
+        <Modal cancel={cancelHandler}>
+          <Input
+            type="text"
+            id="name"
+            label="Name"
+            placeholder="Enter product's name..."
+            value={addName}
+            change={nameChangeHandler}
+          />
+          <Input
+            type="text"
+            id="price"
+            label="Price"
+            placeholder="Enter product's price..."
+            value={addPrice}
+            change={priceChangeHandler}
+          />
+          <Input
+            type="text"
+            id="image"
+            label="Image URL"
+            placeholder="Enter product's image URL..."
+            value={addURL}
+            change={imageChangeHandler}
+          />
+          <Button text="Add!" click={addProductHandler} />
+        </Modal>
+      )}
+      <Products
+        sell={true}
+        items={loadedProducts}
+        click={clickHandler}
+        update={addFormHandler}
+      />
     </React.Fragment>
   );
 };

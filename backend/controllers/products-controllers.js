@@ -10,7 +10,6 @@ const getProducts = async (req, res, next) => {
     return next(err);
   }
 
-  console.log("GET PRODUCTS");
   res.json({
     products: products.map((prod) => prod.toObject({ getters: true })),
   });
