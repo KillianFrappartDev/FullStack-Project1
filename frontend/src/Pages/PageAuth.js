@@ -36,7 +36,7 @@ const PageAuth = (props) => {
       return;
     }
 
-    authContext.login(response.data.token, response.data.userId);
+    authContext.login(response.data.token, response.data.userId, response.data.userName);
   }
 
   let form;

@@ -23,7 +23,7 @@ const signup = async (req, res, next) => {
 
   console.log("SIGNED UP");
   const token = jwt.sign({userId: newUser.id}, "secret");
-  res.json({ token, userId: newUser.id });
+  res.json({ token, userId: newUser.id, userName: name });
 };
 
 const login = async (req, res, next) => {
@@ -46,7 +46,7 @@ const login = async (req, res, next) => {
     
     if (user.password === password) {
     const token = jwt.sign({userId: user.id}, "secret");
-    res.json({ token, userId: user.id });
+    res.json({ token, userId: user.id, userName: user.name });
     console.log("LOGGED IN");
   } else {
     res.json({ message: "Wrong credentials..." });

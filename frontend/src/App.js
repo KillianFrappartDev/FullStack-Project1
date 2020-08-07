@@ -20,18 +20,22 @@ const App = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState(null);
 
-  const loginHandler = (tok, uid) => {
+  const loginHandler = (tok, uid, userName) => {
     setIsLogged(true);
     setToken(tok);
     setUserId(uid);
-    localStorage.setItem("userData", JSON.stringify({userId: uid, token: tok}));
+    setUserName(userName);
+    console.log("LOGIN " + userName);
+    localStorage.setItem("userData", JSON.stringify({userId: uid, token: tok, userName}));
   }
 
   const logoutHandler = () => {
     setIsLogged(false);
     setToken(null);
     setUserId(null);
+    setUserName(null);
     localStorage.removeItem("userData");
   }
 
@@ -70,7 +74,7 @@ const App = () => {
 
   return (
     <AuthContext.Provider
-      value={{ isLogged, token, userId, login: loginHandler, logout: logoutHandler }}
+      value={{ isLogged, token, userId, userName, login: loginHandler, logout: logoutHandler }}
     >
       <Router>
         <Sidebar />
