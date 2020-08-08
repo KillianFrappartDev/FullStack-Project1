@@ -21,7 +21,7 @@ const PageSell = (props) => {
     const fetchProducts = async () => {
       try {
         const responseData = await axios.get(
-          `http://localhost:5000/api/products/${authContext.userId}`,
+          `${process.env.REACT_APP_API}/products/${authContext.userId}`,
           {
             headers: { token: authContext.token, userId: authContext.userId },
           }
@@ -46,7 +46,7 @@ const PageSell = (props) => {
         userId: authContext.userId
       };
 
-      await axios.post("http://localhost:5000/api/products", newItem, {
+      await axios.post(`${process.env.REACT_APP_API}/products`, newItem, {
         headers: { token: authContext.token, userId: authContext.userId },
       });
 
@@ -63,7 +63,7 @@ const PageSell = (props) => {
   const deleteProductHandler = async () => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/products/${currentItem.id}`,
+        `${process.env.REACT_APP_API}/products/${currentItem.id}`,
         { headers: { token: authContext.token, userId: authContext.userId } }
       );
     } catch (error) {

@@ -12,7 +12,7 @@ const PageOrders = (props) => {
     const fetchOrders = async () => {
       try {
         const responseData = await axios.get(
-          "http://localhost:5000/api/orders/" + authContext.userId,
+          `${process.env.REACT_APP_API}/orders/${authContext.userId}`,
           {
             headers: { token: authContext.token, userId: authContext.userId },
           }

@@ -28,7 +28,7 @@ const PageProducts = (props) => {
     const fetchProducts = async () => {
       try {
         const responseData = await axios.get(
-          "http://localhost:5000/api/products"
+          `${process.env.REACT_APP_API}/products`
         );
         setProducts(responseData.data.products);
       } catch (error) {
@@ -61,7 +61,7 @@ const PageProducts = (props) => {
       productId: currentItem.id
     };
     try {
-      await axios.post("http://localhost:5000/api/orders", newOrder, {
+      await axios.post(`${process.env.REACT_APP_API}/orders`, newOrder, {
         headers: { token: authContext.token, userId: authContext.userId },
       });
     } catch (error) {

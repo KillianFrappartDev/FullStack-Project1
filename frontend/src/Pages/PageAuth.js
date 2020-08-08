@@ -26,9 +26,9 @@ const PageAuth = (props) => {
     let response;
     try {
       if (isLogin) {
-        response = await axios.post('http://localhost:5000/api/users/login', { email, password});
+        response = await axios.post(`${process.env.REACT_APP_API}/users/login`, { email, password});
       } else {
-        response = await axios.post('http://localhost:5000/api/users/signup', { name, email, password});
+        response = await axios.post(`${process.env.REACT_APP_API}/users/signup`, { name, email, password});
       }
     } catch (error) {
       console.log("[ERROR][POST][USERS] Authentication failed.");
