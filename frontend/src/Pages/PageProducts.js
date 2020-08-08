@@ -17,7 +17,7 @@ const PageProducts = (props) => {
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
 
-    if (!storedData) {
+    if (!storedData || authContext.isLogged) {
       return;
     } else {
       authContext.login(storedData.token, storedData.userId, storedData.userName);
@@ -58,6 +58,7 @@ const PageProducts = (props) => {
       product: currentItem.name,
       price: currentItem.price,
       userName: authContext.userName,
+      productId: currentItem.id
     };
     try {
       await axios.post("http://localhost:5000/api/orders", newOrder, {

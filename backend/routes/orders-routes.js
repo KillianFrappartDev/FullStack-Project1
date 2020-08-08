@@ -5,9 +5,9 @@ const ordersControllers = require('../controllers/orders-controllers');
 
 const router = express.Router();
 
-router.get("/", ordersControllers.getOrders);
-
 router.use(checkAuth);
+
+router.get("/:uid", ordersControllers.getOrders);
 
 router.post("/", ordersControllers.addOrder);
 

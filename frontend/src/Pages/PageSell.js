@@ -34,7 +34,7 @@ const PageSell = (props) => {
       }
     };
     fetchProducts();
-  }, []);
+  }, [authContext]);
 
   const addProductHandler = async () => {
     let newItem;
