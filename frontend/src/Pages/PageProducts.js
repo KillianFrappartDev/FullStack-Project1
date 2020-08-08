@@ -22,7 +22,7 @@ const PageProducts = (props) => {
     } else {
       authContext.login(storedData.token, storedData.userId, storedData.userName);
     }
-  }, []);
+  }, [authContext]);
 
   useEffect(() => {
     const fetchProducts = async () => {

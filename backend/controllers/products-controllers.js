@@ -1,4 +1,7 @@
+const mongoose = require('mongoose');
+
 const Product = require("../models/product");
+const User = require('../models/user');
 
 const getProducts = async (req, res, next) => {
   let products;
@@ -15,17 +18,51 @@ const getProducts = async (req, res, next) => {
   });
 };
 
+const getProductsById = async (req, res, next) => {
+  const uid = req.params.uid;
+
+  let userWithProducts;
+  try {
+    userWithProducts = await User.findById(uid).populate('products');
+  } catch (error) {
+    const err = new Error("[GET][PRODUCTS] Fetching products by user id failed");
+    console.log(err.message);
+    return next(err);
+  }
+
+  res.json({
+    products: userWithProducts.products.map((prod) => prod.toObject({ getters: true })),
+  });
+}
+
 const addProduct = async (req, res, next) => {
-  const { name, price, image } = req.body;
+  const { name, price, image, userId } = req.body;
 
   const newProduct = new Product({
     name,
     price,
     image,
+    user: userId
   });
 
+  console.log("TEST " + newProduct);
+
+  let user;
   try {
-    await newProduct.save();
+    user = await User.findById(userId);
+  } catch (error) {
+    const err = new Error("[POST][PRODUCTS] Add product failed (Could not find user by id.)");
+    console.log(err.message);
+    return next(err);
+  }
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await newProduct.save({ session: sess });
+    user.products.push(newProduct);
+    await user.save({ session: sess });
+    await sess.commitTransaction();
   } catch (error) {
     const err = new Error("[POST][PRODUCTS] Add product failed");
     console.log(err.message);
@@ -66,5 +103,6 @@ const deleteProduct = async (req, res, next) => {
 
 
 exports.getProducts = getProducts;
+exports.getProductsById = getProductsById;
 exports.addProduct = addProduct;
 exports.deleteProduct = deleteProduct;

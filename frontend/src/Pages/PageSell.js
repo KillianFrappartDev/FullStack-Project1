@@ -5,7 +5,6 @@ import AuthContext from "../Context/auth-context";
 import Button from "../Components/Button/Button";
 import Modal from "../Components/Modal/Modal";
 import Products from "../Components/Products/Products";
-import Form from "../Components/Form/Form";
 import Input from "../Components/Input/Input";
 
 const PageSell = (props) => {
@@ -22,7 +21,10 @@ const PageSell = (props) => {
     const fetchProducts = async () => {
       try {
         const responseData = await axios.get(
-          "http://localhost:5000/api/products"
+          `http://localhost:5000/api/products/${authContext.userId}`,
+          {
+            headers: { token: authContext.token, userId: authContext.userId },
+          }
         );
         setProducts(responseData.data.products);
       } catch (error) {
@@ -41,6 +43,7 @@ const PageSell = (props) => {
         name: addName,
         price: addPrice,
         image: addURL,
+        userId: authContext.userId
       };
 
       await axios.post("http://localhost:5000/api/products", newItem, {

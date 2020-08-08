@@ -4,7 +4,6 @@ import {
   Route,
   Switch,
   Redirect,
-  BrowserRouter,
 } from "react-router-dom";
 
 import AuthContext from './Context/auth-context';

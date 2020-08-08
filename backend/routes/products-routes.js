@@ -11,6 +11,8 @@ router.use(checkAuth);
 
 router.post("/", productsControllers.addProduct);
 
+router.get("/:uid", productsControllers.getProductsById);
+
 router.delete("/:pid", productsControllers.deleteProduct);
 
 module.exports = router;
