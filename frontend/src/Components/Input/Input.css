@@ -22,3 +22,9 @@ input:focus {
     outline: none;
     border: 2px solid #ade498;
 }
+
+@media screen and (max-width: 600px) {
+    .form__element-label {
+        display: none;
+    }
+}

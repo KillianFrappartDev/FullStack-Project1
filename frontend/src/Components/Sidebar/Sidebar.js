@@ -9,7 +9,7 @@ const Sidebar = (props) => {
 
   const clickHandler = () => {
     authContext.logout();
-  }
+  };
 
   let links;
   if (authContext.isLogged) {
@@ -19,9 +19,9 @@ const Sidebar = (props) => {
           <h1 className="sidebar__brand">Shop!</h1>
         </NavLink>
         <div className="sidebar__links">
-          <NavLink className="sidebar__link" to="/profile/info">
+          <NavLink className="sidebar__link" to="/">
             <span className="navbar__brand-icon">
-              <i className="fas fa-user-alt fa-3x"></i>
+              <i className="fas fa-shopping-cart fa-3x"></i>
             </span>
           </NavLink>
           <NavLink className="sidebar__link" to="/profile/products">
@@ -34,7 +34,11 @@ const Sidebar = (props) => {
               <i className="fas fa-money-check-alt fa-3x"></i>
             </span>
           </NavLink>
-          <NavLink onClick={clickHandler} className="sidebar__link primary-color" to="/">
+          <NavLink
+            onClick={clickHandler}
+            className="sidebar__link"
+            to="/"
+          >
             <span className="navbar__brand-icon">
               <i className="fas fa-sign-out-alt fa-3x"></i>
             </span>

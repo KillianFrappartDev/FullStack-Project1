@@ -31,3 +31,13 @@ a {
 .primary-color {
   color: #c70039;
 }
+
+.danger-color {
+  color: red;
+}
+
+@media screen and (max-width: 800px) {
+  .main {
+    padding-left: 5rem;
+  }
+}

@@ -12,7 +12,6 @@ import PageProducts from "./Pages/PageProducts";
 import PageAuth from "./Pages/PageAuth";
 import PageSell from "./Pages/PageSell";
 import PageOrders from "./Pages/PageOrders";
-import PageInfo from "./Pages/PageInfo";
 import "./App.css";
 
 const App = () => {
@@ -44,9 +43,6 @@ const App = () => {
       <Switch>
         <Route path="/" exact>
           <PageProducts />
-        </Route>
-        <Route path="/profile/info" exact>
-          <PageInfo />
         </Route>
         <Route path="/profile/orders" exact>
           <PageOrders />

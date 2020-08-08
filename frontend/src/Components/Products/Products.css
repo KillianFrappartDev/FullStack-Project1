@@ -5,3 +5,15 @@
     margin: 1rem;
     flex-wrap: wrap;
 }
+
+@media screen and (max-width: 855px) {
+    .products {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .products {
+        margin: 0;
+    }
+}

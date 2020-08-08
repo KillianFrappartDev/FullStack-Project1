@@ -77,7 +77,7 @@ const PageProducts = (props) => {
     <React.Fragment>
       {isModal && (
         <Modal cancel={cancelHandler}>
-          <h1>{`Do you really want to buy ${currentItem.name} ?`}</h1>
+          <h1 className="modal-title">{`Do you really want to buy ${currentItem.name} ?`}</h1>
           <Button click={buyHandler} text="Confirm!" color="green" />
           <Button click={cancelHandler} text="Cancel!" />
         </Modal>

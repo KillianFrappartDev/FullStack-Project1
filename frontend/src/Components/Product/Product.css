@@ -13,3 +13,10 @@
     width: 260px;
     height: 220px;
 }
+
+
+@media screen and (max-width: 450px) {
+    .product {
+        margin: 2rem 0;
+    }
+}

@@ -49,3 +49,13 @@
 .sidebar__link.primary-color:hover {
     color: red!important;
 }
+
+@media screen and (max-width: 800px) {
+    .sidebar {
+        width: 5rem;
+    }
+
+    .sidebar__brand {
+        font-size: 1.8rem;
+    }
+}
