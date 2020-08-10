@@ -22,7 +22,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    `mongodb+srv://KillianFrappartDev:${process.env.DB_PASSWORD}@cluster0-qo3vu.gcp.mongodb.net/shop?retryWrites=true&w=majority`,
+    process.env.DB,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
